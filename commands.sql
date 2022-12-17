@@ -7,4 +7,5 @@ CREATE TABLE blogs (
 
 );
 
-INSERT INTO blogs (author, url, title) VALUES ("Ernest Hemingway","www.ernestblogs.com",  "Golden Plains of Stranglethorn")
+INSERT INTO blogs (author, url, title) VALUES ('Ernest Hemingway','www.ernestblogs.com',  'Golden Plains of Stranglethorn');
+INSERT INTO blogs (author, url, title) VALUES ('Google','www.goquickstart.com',  'Kickstart Go development');
