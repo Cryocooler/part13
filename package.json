@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "run test"
+    "start": "NODE_ENV=production node index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "start:test": "NODE_ENV=test node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,8 +15,10 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "http": "^0.0.1-security",
     "pg": "^8.8.0",
     "sequelize": "^6.27.0"
   }
