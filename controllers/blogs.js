@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 const { Op } = require("sequelize");
 const { response } = require("../app");
-const { Blog, User } = require("../models");
+const { Blog, User, Session } = require("../models");
 const { SECRET } = require("../util/config");
 
 // middleware for findbyPK
@@ -63,6 +63,13 @@ router.get("/:id", blogFinder, async (req, res) => {
 
 router.post("/", tokenExtractor, async (req, res) => {
   try {
+    const session = await Session.findOne({
+      where: { user_id: req.decodedToken.id },
+    });
+    console.log("SESSION", session);
+    if (!session) {
+      return res.status(401).error({ error: "Invalid or missing token" });
+    }
     const user = await User.findByPk(req.decodedToken.id);
     const blog = await Blog.create({
       ...req.body,
@@ -71,13 +78,18 @@ router.post("/", tokenExtractor, async (req, res) => {
     });
     res.json(blog);
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ error });
   }
 });
 
 router.delete("/:id", tokenExtractor, async (req, res) => {
   const user = await User.findByPk(req.decodedToken.id);
+  const session = await Session.findOne({
+    where: { user_id: req.decodedToken.id },
+  });
+  if (!session) {
+    return res.status(401).error({ error: "Invalid or missing token" });
+  }
   const blogToDelete = await Blog.findByPk(req.params.id);
 
   if (!blogToDelete) {

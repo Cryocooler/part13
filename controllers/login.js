@@ -3,6 +3,8 @@ const router = require("express").Router();
 
 const { SECRET } = require("../util/config");
 const User = require("../models/user");
+const Session = require("../models/session");
+const { sequelize } = require("../util/db");
 
 router.post("/", async (request, response) => {
   const body = request.body;
@@ -27,6 +29,11 @@ router.post("/", async (request, response) => {
   };
 
   const token = jwt.sign(userForToken, SECRET);
+  await Session.create({ token, userId: userForToken.id });
+  // await sequelize.query(
+  //   `INSERT INTO SESSIONS (user_id, token, is_disabled) values (${user.id}, ${token}, false)`,
+  //   { model: Session }
+  // );
 
   response
     .status(200)
