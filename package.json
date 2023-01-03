@@ -7,12 +7,14 @@
     "start": "NODE_ENV=production node index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand --forceExit",
     "dev": "NODE_ENV=development nodemon index.js",
-    "start:test": "NODE_ENV=test node index.js"
+    "start:test": "NODE_ENV=test node index.js",
+    "migration:down": "node util/rollback.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -22,6 +24,7 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.8.0",
-    "sequelize": "^6.27.0"
+    "sequelize": "^6.27.0",
+    "umzug": "^3.2.1"
   }
 }

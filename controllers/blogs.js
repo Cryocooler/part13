@@ -71,6 +71,7 @@ router.post("/", tokenExtractor, async (req, res) => {
     });
     res.json(blog);
   } catch (error) {
+    console.log(error);
     return res.status(400).json({ error });
   }
 });
